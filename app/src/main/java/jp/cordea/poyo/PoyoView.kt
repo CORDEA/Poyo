@@ -18,14 +18,27 @@ class PoyoView @JvmOverloads constructor(
         color = ContextCompat.getColor(context, R.color.colorAccent)
         style = Paint.Style.FILL
     }
+    private val debugPaint = Paint().apply {
+        isAntiAlias = true
+        color = ContextCompat.getColor(context, R.color.colorPrimary)
+        strokeWidth = 10f
+        style = Paint.Style.FILL
+    }
     private val path = Path()
 
     private var progress = 0f
+    private var debuggable = false
+
     private val maxHeight = context.resources.getDimension(R.dimen.max_height)
     private val cubicPoints = (0 until 5).map { CubicPoint() }
 
     fun setProgress(progress: Float) {
         this.progress = progress
+        invalidate()
+    }
+
+    fun setDebuggable(debuggable: Boolean) {
+        this.debuggable = debuggable
         invalidate()
     }
 
@@ -75,8 +88,23 @@ class PoyoView @JvmOverloads constructor(
                 baseX + current.point.x,
                 baseY + current.point.y
             )
-        }
 
+        }
         canvas.drawPath(path, paint)
+
+        if (debuggable) {
+            cubicPoints.forEach {
+                canvas.drawPoint(
+                    baseX + it.rightControlPoint.x,
+                    baseY + it.rightControlPoint.y,
+                    debugPaint
+                )
+                canvas.drawPoint(
+                    baseX + it.leftControlPoint.x,
+                    baseY + it.leftControlPoint.y,
+                    debugPaint
+                )
+            }
+        }
     }
 }
