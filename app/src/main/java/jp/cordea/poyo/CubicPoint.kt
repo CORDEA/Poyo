@@ -17,9 +17,17 @@ class CubicPoint {
         pointY: Float,
         rightX: Float,
         rightY: Float
-    ) {
+    ) = apply {
         leftControlPoint.set(leftX, -leftY)
         point.set(pointX, -pointY)
         rightControlPoint.set(rightX, -rightY)
     }
+
+    fun applyProgress(progress: Float) {
+        leftControlPoint *= progress
+        point *= progress
+        rightControlPoint *= progress
+    }
 }
+
+operator fun PointF.timesAssign(progress: Float) = set(x, y * progress)

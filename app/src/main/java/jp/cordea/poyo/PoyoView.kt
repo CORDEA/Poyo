@@ -20,8 +20,14 @@ class PoyoView @JvmOverloads constructor(
     }
     private val path = Path()
 
+    private var progress = 0f
     private val maxHeight = context.resources.getDimension(R.dimen.max_height)
     private val cubicPoints = (0 until 5).map { CubicPoint() }
+
+    fun setProgress(progress: Float) {
+        this.progress = progress
+        invalidate()
+    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -32,27 +38,27 @@ class PoyoView @JvmOverloads constructor(
             0f, 0f,
             0f, 0f,
             x5, 0f
-        )
+        ).applyProgress(progress)
         cubicPoints[1].set(
             x10 * 3.5f, 0f,
             x10 * 4f, maxHeight / 3f,
             x10 * 4.5f, (maxHeight / 3f) * 2
-        )
+        ).applyProgress(progress)
         cubicPoints[2].set(
             x10 * 4.5f, maxHeight,
             width / 2f, maxHeight,
             x10 * 5.5f, maxHeight
-        )
+        ).applyProgress(progress)
         cubicPoints[3].set(
             x10 * 5.5f, (maxHeight / 3f) * 2,
             x10 * 6f, maxHeight / 3f,
             x10 * 6.5f, 0f
-        )
+        ).applyProgress(progress)
         cubicPoints[4].set(
             x5 * 4, 0f,
             x5 * 5, 0f,
             0f, 0f
-        )
+        ).applyProgress(progress)
 
         val baseX = 0f
         val baseY = height / 2f
