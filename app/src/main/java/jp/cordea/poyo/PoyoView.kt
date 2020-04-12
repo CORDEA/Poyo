@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import androidx.core.content.ContextCompat
 
 class PoyoView @JvmOverloads constructor(
@@ -32,6 +33,8 @@ class PoyoView @JvmOverloads constructor(
     }
     private val path = Path()
 
+    private val accelerateInterpolator = AccelerateInterpolator()
+
     private var progress = 0f
     private var debuggable = false
 
@@ -55,41 +58,48 @@ class PoyoView @JvmOverloads constructor(
         val y4 = maxHeight / 4f
         val y7 = maxHeight / 7f
         val y10 = maxHeight / 10f
+        val y20 = maxHeight / 20f
+
+        val accelerate = accelerateInterpolator.getInterpolation(progress)
 
         cubicPoints[0].set(
             0f, 0f,
             0f, 0f,
-            x5, y10 * progress
+            x5 + progress, y20 * accelerate
         )
         cubicPoints[1].set(
-            x10 * 1.5f + (x10 * 2.5f * progress), 0f,
-            x10 * 2f + (x10 * 2.5f * progress), y4 * progress,
-            x10 * 2.5f + (x10 * 2.5f * progress), y4 * 2 * progress
+            x10 * 2f + (x10 * 2f * progress), 0f,
+            x10 * 2.5f + (x10 * 2f * progress), y4 * accelerate,
+            x10 * 3f + (x10 * 2f * progress), y4 * 2 * accelerate
         )
 
         cubicPoints[2].set(
             x10 * 4.3f + (x10 * 0.2f * progress), y10 * 7 * progress,
             x10 * 4.5f, y10 * 8 * progress,
-            x10 * 4.7f - (x10 * 0.2f * progress), y10 * 9 * progress
+            // 4.5
+            x10 * 4.75f - (x10 * 0.25f * progress), y10 * 9 * progress
         )
         cubicPoints[3].set(
-            (x10 * 4.5f) + (x10 * 0.25f * progress), maxHeight * progress,
+            // 4.75
+            (x10 * 4.7f) + (x10 * 0.05f * progress), maxHeight * progress,
             width / 2f, maxHeight * progress,
-            (x10 * 5.5f) - (x10 * 0.25f * progress), maxHeight * progress
+            // 5.25
+            (x10 * 5.3f) - (x10 * 0.05f * progress), maxHeight * progress
         )
         cubicPoints[4].set(
-            x10 * 5.3f + (x10 * 0.2f * progress), y10 * 9 * progress,
+            // 5.5
+            x10 * 5.25f + (x10 * 0.25f * progress), y10 * 9 * progress,
             x10 * 5.5f, y10 * 8 * progress,
             x10 * 5.7f - (x10 * 0.2f * progress), y10 * 7 * progress
         )
 
         cubicPoints[5].set(
-            x10 * 7.5f - (x10 * 2.5f * progress), y4 * 2 * progress,
-            x10 * 8f - (x10 * 2.5f * progress), y4 * progress,
-            x10 * 8.5f - (x10 * 2.5f * progress), 0f
+            x10 * 7f - (x10 * 2f * progress), y4 * 2 * accelerate,
+            x10 * 7.5f - (x10 * 2f * progress), y4 * accelerate,
+            x10 * 8f - (x10 * 2f * progress), 0f
         )
         cubicPoints[6].set(
-            x5 * 4, y10 * progress,
+            x5 * 4 - progress, y20 * accelerate,
             x5 * 5, 0f,
             0f, 0f
         )
