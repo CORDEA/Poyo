@@ -59,9 +59,6 @@ class PoyoView @JvmOverloads constructor(
         val height = height.toFloat()
         val x5 = width / 5f
         val x10 = width / 10f
-        val y4 = maxHeight / 4f
-        val y7 = maxHeight / 7f
-        val y10 = maxHeight / 10f
         val y20 = maxHeight / 20f
 
         val accelerate = accelerateInterpolator.getInterpolation(progress)
@@ -79,9 +76,9 @@ class PoyoView @JvmOverloads constructor(
 
         cubicPoints[2].set(
             // 4.5
-            x10 * 3.7f + (x10 * 0.8f * progress), y20 * 10 * progress,
-            x10 * 4.2f + (x10 * 0.3f * progress), y20 * 15 * progress,
-            x10 * 4.6f - (x10 * 0.1f * accelerate), y20 * 19 * progress
+            x10 * 3.7f + (x10 * 0.8f * progress), (y20 * 10 * progress) + (y20 * 5 * accelerate),
+            x10 * 4.2f + (x10 * 0.3f * progress), (y20 * 15 * progress) + (y20 * 2 * accelerate),
+            x10 * 4.6f - (x10 * 0.1f * progress), y20 * 19 * progress
         )
         cubicPoints[3].set(
             // 4.75
@@ -93,8 +90,8 @@ class PoyoView @JvmOverloads constructor(
         cubicPoints[4].set(
             // 5.5
             x10 * 5.4f + (x10 * 0.1f * progress), y20 * 19 * progress,
-            x10 * 5.8f - (x10 * 0.3f * progress), y20 * 15 * progress,
-            x10 * 6.3f - (x10 * 0.8f * progress), y20 * 10 * progress
+            x10 * 5.8f - (x10 * 0.3f * progress), (y20 * 15 * progress) + (y20 * 2 * accelerate),
+            x10 * 6.3f - (x10 * 0.8f * progress), (y20 * 10 * progress) + (y20 * 5 * accelerate)
         )
 
         cubicPoints[5].set(
