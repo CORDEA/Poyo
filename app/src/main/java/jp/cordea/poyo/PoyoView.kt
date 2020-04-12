@@ -24,6 +24,12 @@ class PoyoView @JvmOverloads constructor(
         strokeWidth = 10f
         style = Paint.Style.FILL
     }
+    private val debugControlPointPaint = Paint().apply {
+        isAntiAlias = true
+        color = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+        strokeWidth = 10f
+        style = Paint.Style.FILL
+    }
     private val path = Path()
 
     private var progress = 0f
@@ -95,14 +101,19 @@ class PoyoView @JvmOverloads constructor(
         if (debuggable) {
             cubicPoints.forEach {
                 canvas.drawPoint(
+                    baseX + it.point.x,
+                    baseY + it.point.y,
+                    debugPaint
+                )
+                canvas.drawPoint(
                     baseX + it.rightControlPoint.x,
                     baseY + it.rightControlPoint.y,
-                    debugPaint
+                    debugControlPointPaint
                 )
                 canvas.drawPoint(
                     baseX + it.leftControlPoint.x,
                     baseY + it.leftControlPoint.y,
-                    debugPaint
+                    debugControlPointPaint
                 )
             }
         }
