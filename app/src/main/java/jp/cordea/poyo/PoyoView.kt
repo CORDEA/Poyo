@@ -43,6 +43,7 @@ class PoyoView @JvmOverloads constructor(
     private var debuggable = false
 
     private val maxHeight = context.resources.getDimension(R.dimen.max_height)
+    private val bottomMaxHeight = context.resources.getDimension(R.dimen.bottom_max_height)
     private val cubicPoints = (0 until 7).map { CubicPoint() }
 
     fun setProgress(progress: Float) {
@@ -173,37 +174,39 @@ class PoyoView @JvmOverloads constructor(
         cubicPoints[0].set(
             0f, 0f,
             0f, 0f,
-            x10, y20 * 2f
+            x10, y20 * 2f * progress
         )
         cubicPoints[1].set(
-            x10 * 1.5f, y20 * 2f,
-            x10 * 2f, y20 * 2f,
-            x10 * 3.5f, y20 * 1.5f
+            x10 * 1.5f, y20 * 2f * progress,
+            x10 * 2f, y20 * 2f * progress,
+            x10 * 3.5f, y20 * 1.5f * progress
         )
 
         cubicPoints[2].set(
-            x10 * 4f, 0f,
-            x10 * 4.3f, y20 * 6f * progress,
+            x10 * 3.7f + (x10 * 0.3f * progress), 0f,
+            x10 * 4.1f + (x10 * 0.2f * progress), y20 * 6f * progress,
             x10 * 4.5f, y20 * 11f * progress
         )
         cubicPoints[3].set(
-            (x10 * 4.45f) + (x10 * 0.05f * progress), -bottomMaxHeight * progress,
+            // 4.5
+            (x10 * 4.7f) - (x10 * 0.2f * progress), -bottomMaxHeight * progress,
             width / 2f, -bottomMaxHeight * progress,
-            (x10 * 5.55f) - (x10 * 0.05f * progress), -bottomMaxHeight * progress
+            // 5.5
+            (x10 * 5.3f) + (x10 * 0.2f * progress), -bottomMaxHeight * progress
         )
         cubicPoints[4].set(
             x10 * 5.5f, y20 * 11f * progress,
-            x10 * 5.7f, y20 * 6f * progress,
-            x10 * 6f, 0f
+            x10 * 5.9f - (x10 * 0.2f * progress), y20 * 6f * progress,
+            x10 * 6.3f - (x10 * 0.3f * progress), 0f
         )
 
         cubicPoints[5].set(
-            x10 * 6.5f, y20 * 1.5f,
-            x10 * 8f, y20 * 2f,
-            x10 * 8.5f, y20 * 2f
+            x10 * 6.5f, y20 * 1.5f * progress,
+            x10 * 8f, y20 * 2f * progress,
+            x10 * 8.5f, y20 * 2f * progress
         )
         cubicPoints[6].set(
-            x10 * 9f, y20 * 2f,
+            x10 * 9f, y20 * 2f * progress,
             width, 0f,
             0f, 0f
         )
