@@ -65,19 +65,19 @@ class PoyoView @JvmOverloads constructor(
         cubicPoints[0].set(
             0f, 0f,
             0f, 0f,
-            x5 + progress, y20 * accelerate
+            x5 + progress, y20 * 3 * accelerate
         )
         cubicPoints[1].set(
-            x10 * 2f + (x10 * 2f * progress), 0f,
-            x10 * 2.5f + (x10 * 2f * progress), y4 * accelerate,
-            x10 * 3f + (x10 * 2f * progress), y4 * 2 * accelerate
+            x10 * 2f + (x10 * 2f * progress), y20 * 7 * accelerate,
+            x10 * 2.5f + (x10 * 2f * progress), y20 * 9 * accelerate,
+            x10 * 3f + (x10 * 2f * progress), y20 * 11 * accelerate
         )
 
         cubicPoints[2].set(
-            x10 * 4.3f + (x10 * 0.2f * progress), y10 * 7 * progress,
-            x10 * 4.5f, y10 * 8 * progress,
+            x10 * 4.3f + (x10 * 0.2f * progress), y20 * 15 * progress,
+            x10 * 4.5f, y20 * 17 * progress,
             // 4.5
-            x10 * 4.75f - (x10 * 0.25f * progress), y10 * 9 * progress
+            x10 * 4.75f - (x10 * 0.25f * progress), y20 * 19 * progress
         )
         cubicPoints[3].set(
             // 4.75
@@ -88,18 +88,18 @@ class PoyoView @JvmOverloads constructor(
         )
         cubicPoints[4].set(
             // 5.5
-            x10 * 5.25f + (x10 * 0.25f * progress), y10 * 9 * progress,
-            x10 * 5.5f, y10 * 8 * progress,
-            x10 * 5.7f - (x10 * 0.2f * progress), y10 * 7 * progress
+            x10 * 5.25f + (x10 * 0.25f * progress), y20 * 19 * progress,
+            x10 * 5.5f, y20 * 17 * progress,
+            x10 * 5.7f - (x10 * 0.2f * progress), y20 * 15 * progress
         )
 
         cubicPoints[5].set(
-            x10 * 7f - (x10 * 2f * progress), y4 * 2 * accelerate,
-            x10 * 7.5f - (x10 * 2f * progress), y4 * accelerate,
-            x10 * 8f - (x10 * 2f * progress), 0f
+            x10 * 7f - (x10 * 2f * progress), y20 * 11 * accelerate,
+            x10 * 7.5f - (x10 * 2f * progress), y20 * 9 * accelerate,
+            x10 * 8f - (x10 * 2f * progress), y20 * 7 * accelerate
         )
         cubicPoints[6].set(
-            x5 * 4 - progress, y20 * accelerate,
+            x5 * 4 - progress, y20 * 3 * accelerate,
             x5 * 5, 0f,
             0f, 0f
         )
