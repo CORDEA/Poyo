@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.core.content.ContextCompat
+import kotlin.math.absoluteValue
 
 class PoyoView @JvmOverloads constructor(
     context: Context,
@@ -61,6 +62,8 @@ class PoyoView @JvmOverloads constructor(
 
         if (progress > 0f) {
             applyPlusCubicPoints()
+        } else {
+            applyMinusCubicPoints()
         }
 
         val baseX = 0f
@@ -156,6 +159,52 @@ class PoyoView @JvmOverloads constructor(
         cubicPoints[6].set(
             x5 * 4 - progress, y20 * 3 * accelerate,
             x5 * 5, 0f,
+            0f, 0f
+        )
+    }
+
+    private fun applyMinusCubicPoints() {
+        val progress = progress.absoluteValue
+
+        val width = width.toFloat()
+        val x10 = width / 10f
+        val y20 = -(bottomMaxHeight / 20f)
+
+        cubicPoints[0].set(
+            0f, 0f,
+            0f, 0f,
+            x10, y20 * 2f
+        )
+        cubicPoints[1].set(
+            x10 * 1.5f, y20 * 2f,
+            x10 * 2f, y20 * 2f,
+            x10 * 3.5f, y20 * 1.5f
+        )
+
+        cubicPoints[2].set(
+            x10 * 4f, 0f,
+            x10 * 4.3f, y20 * 6f * progress,
+            x10 * 4.5f, y20 * 11f * progress
+        )
+        cubicPoints[3].set(
+            (x10 * 4.45f) + (x10 * 0.05f * progress), -bottomMaxHeight * progress,
+            width / 2f, -bottomMaxHeight * progress,
+            (x10 * 5.55f) - (x10 * 0.05f * progress), -bottomMaxHeight * progress
+        )
+        cubicPoints[4].set(
+            x10 * 5.5f, y20 * 11f * progress,
+            x10 * 5.7f, y20 * 6f * progress,
+            x10 * 6f, 0f
+        )
+
+        cubicPoints[5].set(
+            x10 * 6.5f, y20 * 1.5f,
+            x10 * 8f, y20 * 2f,
+            x10 * 8.5f, y20 * 2f
+        )
+        cubicPoints[6].set(
+            x10 * 9f, y20 * 2f,
+            width, 0f,
             0f, 0f
         )
     }
