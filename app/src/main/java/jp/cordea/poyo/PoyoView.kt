@@ -31,7 +31,9 @@ class PoyoView @JvmOverloads constructor(
         strokeWidth = 10f
         style = Paint.Style.FILL
     }
-    private val path = Path()
+    private val path = Path().apply {
+        fillType = Path.FillType.EVEN_ODD
+    }
 
     private val accelerateInterpolator = AccelerateInterpolator()
 
@@ -53,6 +55,8 @@ class PoyoView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        val width = width.toFloat()
+        val height = height.toFloat()
         val x5 = width / 5f
         val x10 = width / 10f
         val y4 = maxHeight / 4f
@@ -121,6 +125,11 @@ class PoyoView @JvmOverloads constructor(
             )
 
         }
+        path.moveTo(baseX, baseY)
+        path.lineTo(0f, height)
+        path.lineTo(width, height)
+        path.lineTo(width, baseY)
+        path.close()
         canvas.drawPath(path, paint)
 
         if (debuggable) {
