@@ -17,18 +17,18 @@ class PoyoView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private val paint = Paint().apply {
         isAntiAlias = true
-        color = ContextCompat.getColor(context, R.color.colorAccent)
+        color = ContextCompat.getColor(context, R.color.main)
         style = Paint.Style.FILL
     }
     private val debugPaint = Paint().apply {
         isAntiAlias = true
-        color = ContextCompat.getColor(context, R.color.colorPrimary)
+        color = ContextCompat.getColor(context, R.color.debug)
         strokeWidth = 10f
         style = Paint.Style.FILL
     }
     private val debugControlPointPaint = Paint().apply {
         isAntiAlias = true
-        color = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+        color = ContextCompat.getColor(context, R.color.debugAccent)
         strokeWidth = 10f
         style = Paint.Style.FILL
     }
