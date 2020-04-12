@@ -36,7 +36,7 @@ class PoyoView @JvmOverloads constructor(
     private var debuggable = false
 
     private val maxHeight = context.resources.getDimension(R.dimen.max_height)
-    private val cubicPoints = (0 until 5).map { CubicPoint() }
+    private val cubicPoints = (0 until 7).map { CubicPoint() }
 
     fun setProgress(progress: Float) {
         this.progress = progress
@@ -52,32 +52,47 @@ class PoyoView @JvmOverloads constructor(
         super.onDraw(canvas)
         val x5 = width / 5f
         val x10 = width / 10f
+        val y4 = maxHeight / 4f
+        val y7 = maxHeight / 7f
+        val y10 = maxHeight / 10f
 
         cubicPoints[0].set(
             0f, 0f,
             0f, 0f,
-            x5, 0f
-        ).applyProgress(progress)
+            x5, y10 * progress
+        )
         cubicPoints[1].set(
-            x10 * 3.5f, 0f,
-            x10 * 4f, maxHeight / 3f,
-            x10 * 4.5f, (maxHeight / 3f) * 2
-        ).applyProgress(progress)
+            x10 * 1.5f + (x10 * 2.5f * progress), 0f,
+            x10 * 2f + (x10 * 2.5f * progress), y4 * progress,
+            x10 * 2.5f + (x10 * 2.5f * progress), y4 * 2 * progress
+        )
+
         cubicPoints[2].set(
-            x10 * 4.5f, maxHeight,
-            width / 2f, maxHeight,
-            x10 * 5.5f, maxHeight
-        ).applyProgress(progress)
+            x10 * 4.3f + (x10 * 0.2f * progress), y10 * 7 * progress,
+            x10 * 4.5f, y10 * 8 * progress,
+            x10 * 4.7f - (x10 * 0.2f * progress), y10 * 9 * progress
+        )
         cubicPoints[3].set(
-            x10 * 5.5f, (maxHeight / 3f) * 2,
-            x10 * 6f, maxHeight / 3f,
-            x10 * 6.5f, 0f
-        ).applyProgress(progress)
+            (x10 * 4.5f) + (x10 * 0.25f * progress), maxHeight * progress,
+            width / 2f, maxHeight * progress,
+            (x10 * 5.5f) - (x10 * 0.25f * progress), maxHeight * progress
+        )
         cubicPoints[4].set(
-            x5 * 4, 0f,
+            x10 * 5.3f + (x10 * 0.2f * progress), y10 * 9 * progress,
+            x10 * 5.5f, y10 * 8 * progress,
+            x10 * 5.7f - (x10 * 0.2f * progress), y10 * 7 * progress
+        )
+
+        cubicPoints[5].set(
+            x10 * 7.5f - (x10 * 2.5f * progress), y4 * 2 * progress,
+            x10 * 8f - (x10 * 2.5f * progress), y4 * progress,
+            x10 * 8.5f - (x10 * 2.5f * progress), 0f
+        )
+        cubicPoints[6].set(
+            x5 * 4, y10 * progress,
             x5 * 5, 0f,
             0f, 0f
-        ).applyProgress(progress)
+        )
 
         val baseX = 0f
         val baseY = height / 2f
