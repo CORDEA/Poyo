@@ -74,14 +74,14 @@ class PoyoView @JvmOverloads constructor(
         cubicPoints[1].set(
             x10 * 2f + (x10 * 2f * progress), y20 * 7 * accelerate,
             x10 * 2.5f + (x10 * 2f * progress), y20 * 9 * accelerate,
-            x10 * 3f + (x10 * 2f * progress), y20 * 11 * accelerate
+            x10 * 3.2f + (x10 * 1.8f * progress), y20 * 11 * accelerate
         )
 
         cubicPoints[2].set(
-            x10 * 4.3f + (x10 * 0.2f * progress), y20 * 15 * progress,
-            x10 * 4.5f, y20 * 17 * progress,
             // 4.5
-            x10 * 4.75f - (x10 * 0.25f * progress), y20 * 19 * progress
+            x10 * 3.7f + (x10 * 0.8f * progress), y20 * 10 * progress,
+            x10 * 4.2f + (x10 * 0.3f * progress), y20 * 15 * progress,
+            x10 * 4.6f - (x10 * 0.1f * accelerate), y20 * 19 * progress
         )
         cubicPoints[3].set(
             // 4.75
@@ -92,13 +92,13 @@ class PoyoView @JvmOverloads constructor(
         )
         cubicPoints[4].set(
             // 5.5
-            x10 * 5.25f + (x10 * 0.25f * progress), y20 * 19 * progress,
-            x10 * 5.5f, y20 * 17 * progress,
-            x10 * 5.7f - (x10 * 0.2f * progress), y20 * 15 * progress
+            x10 * 5.4f + (x10 * 0.1f * progress), y20 * 19 * progress,
+            x10 * 5.8f - (x10 * 0.3f * progress), y20 * 15 * progress,
+            x10 * 6.3f - (x10 * 0.8f * progress), y20 * 10 * progress
         )
 
         cubicPoints[5].set(
-            x10 * 7f - (x10 * 2f * progress), y20 * 11 * accelerate,
+            x10 * 6.8f - (x10 * 1.8f * progress), y20 * 11 * accelerate,
             x10 * 7.5f - (x10 * 2f * progress), y20 * 9 * accelerate,
             x10 * 8f - (x10 * 2f * progress), y20 * 7 * accelerate
         )
