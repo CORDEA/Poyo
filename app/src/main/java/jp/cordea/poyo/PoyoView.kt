@@ -5,6 +5,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.VelocityTracker
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.core.content.ContextCompat
@@ -39,21 +41,46 @@ class PoyoView @JvmOverloads constructor(
     private val accelerateInterpolator = AccelerateInterpolator()
     private val accelerate4Interpolator = AccelerateInterpolator(0.4f)
 
-    private var progress = 0f
+    private var prevY = 0f
     private var debuggable = false
+    private var velocityTracker: VelocityTracker? = null
 
+    private val viewProgress = ViewProgress()
     private val maxHeight = context.resources.getDimension(R.dimen.max_height)
     private val bottomMaxHeight = context.resources.getDimension(R.dimen.bottom_max_height)
     private val cubicPoints = (0 until 7).map { CubicPoint() }
 
-    fun setProgress(progress: Float) {
-        this.progress = progress
-        invalidate()
-    }
-
     fun setDebuggable(debuggable: Boolean) {
         this.debuggable = debuggable
         invalidate()
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                velocityTracker?.clear()
+                velocityTracker = velocityTracker ?: VelocityTracker.obtain()
+                velocityTracker?.addMovement(event)
+                prevY = event.y
+                return true
+            }
+            MotionEvent.ACTION_MOVE -> {
+                velocityTracker?.let {
+                    it.addMovement(event)
+                    it.computeCurrentVelocity(1000)
+                    viewProgress.update(prevY, event.y, it.yVelocity)
+                    invalidate()
+                }
+                prevY = event.y
+                return true
+            }
+            MotionEvent.ACTION_UP -> {
+                velocityTracker?.recycle()
+                velocityTracker = null
+                viewProgress.up { invalidate() }
+            }
+        }
+        return super.onTouchEvent(event)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -61,14 +88,15 @@ class PoyoView @JvmOverloads constructor(
         val width = width.toFloat()
         val height = height.toFloat()
 
-        if (progress > 0f) {
+        if (viewProgress.progress > 0f) {
             applyPlusCubicPoints()
         } else {
             applyMinusCubicPoints()
         }
 
         val baseX = 0f
-        val baseY = height / 2f
+        val baseY = (height / 2f) - viewProgress.distance
+
         path.reset()
         path.moveTo(baseX, baseY)
         for (index in 1 until cubicPoints.size) {
@@ -113,6 +141,7 @@ class PoyoView @JvmOverloads constructor(
     }
 
     private fun applyPlusCubicPoints() {
+        val progress = viewProgress.progress
         val width = width.toFloat()
         val x5 = width / 5f
         val x10 = width / 10f
@@ -165,7 +194,7 @@ class PoyoView @JvmOverloads constructor(
     }
 
     private fun applyMinusCubicPoints() {
-        val progress = progress.absoluteValue
+        val progress = viewProgress.progress.absoluteValue
 
         val width = width.toFloat()
         val x10 = width / 10f
