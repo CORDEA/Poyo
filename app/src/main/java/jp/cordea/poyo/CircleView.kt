@@ -2,6 +2,7 @@ package jp.cordea.poyo
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
@@ -31,6 +32,7 @@ class CircleView @JvmOverloads constructor(
         strokeWidth = 10f
         style = Paint.Style.FILL
     }
+    private val pathMatrix = Matrix()
     private val path = Path()
 
     private var debuggable = true
@@ -117,6 +119,10 @@ class CircleView @JvmOverloads constructor(
 
         }
         path.close()
+
+        pathMatrix.postRotate(0f, centerX, centerY)
+        path.transform(pathMatrix)
+
         canvas.drawPath(path, paint)
 
         if (debuggable) {
