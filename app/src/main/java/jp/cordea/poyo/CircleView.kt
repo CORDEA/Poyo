@@ -14,7 +14,7 @@ class CircleView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), CircleViewAnimatable {
     private val paint = Paint().apply {
         isAntiAlias = true
         color = ContextCompat.getColor(context, R.color.main)
@@ -35,11 +35,12 @@ class CircleView @JvmOverloads constructor(
     private val pathMatrix = Matrix()
     private val path = Path()
 
-    private var debuggable = true
-
-    private val cubicPoints = (0 until 9).map { CubicPoint() }
+    private var debuggable = false
+    private var progress = 0f
+    private var degrees = 0
 
     private val circleSize = context.resources.getDimension(R.dimen.circle_size)
+    private val cubicPoints = (0 until 9).map { CubicPoint() }
 
     fun setDebuggable(debuggable: Boolean) {
         this.debuggable = debuggable
@@ -52,7 +53,7 @@ class CircleView @JvmOverloads constructor(
         val half = circleSize / 2f
         val middle = sqrt((half * half) / 2f)
 
-        val length = circleSize / 8f
+        val length = ((circleSize / 6f) * progress) + circleSize / 15f
         val length45 = sqrt((length * length) / 2f)
 
         cubicPoints[0].set(
@@ -120,7 +121,8 @@ class CircleView @JvmOverloads constructor(
         }
         path.close()
 
-        pathMatrix.postRotate(0f, centerX, centerY)
+        pathMatrix.reset()
+        pathMatrix.postRotate(degrees.toFloat(), centerX, centerY)
         path.transform(pathMatrix)
 
         canvas.drawPath(path, paint)
@@ -144,5 +146,15 @@ class CircleView @JvmOverloads constructor(
                 )
             }
         }
+    }
+
+    override fun updateDegrees(degrees: Int) {
+        this.degrees = degrees
+        invalidate()
+    }
+
+    override fun updateProgress(progress: Float) {
+        this.progress = progress
+        invalidate()
     }
 }
