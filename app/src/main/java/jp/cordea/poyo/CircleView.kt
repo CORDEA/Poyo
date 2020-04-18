@@ -35,7 +35,7 @@ class CircleView @JvmOverloads constructor(
 
     private var debuggable = true
 
-    private val cubicPoints = (0 until 8).map { CubicPoint() }
+    private val cubicPoints = (0 until 9).map { CubicPoint() }
 
     private val circleSize = context.resources.getDimension(R.dimen.circle_size)
 
@@ -50,45 +50,53 @@ class CircleView @JvmOverloads constructor(
         val half = circleSize / 2f
         val middle = sqrt((half * half) / 2f)
 
+        val length = circleSize / 8f
+        val length45 = sqrt((length * length) / 2f)
+
         cubicPoints[0].set(
+            -length, half,
             0f, half,
-            0f, half,
-            0f, half
+            length, half
         )
         cubicPoints[1].set(
+            middle - length45, middle + length45,
             middle, middle,
-            middle, middle,
-            middle, middle
+            middle + length45, middle - length45
         )
         cubicPoints[2].set(
+            half, length,
             half, 0f,
-            half, 0f,
-            half, 0f
+            half, -length
         )
         cubicPoints[3].set(
+            middle + length45, -middle + length45,
             middle, -middle,
-            middle, -middle,
-            middle, -middle
+            middle - length45, -middle - length45
         )
         cubicPoints[4].set(
+            length, -half,
             0f, -half,
-            0f, -half,
-            0f, -half
+            -length, -half
         )
         cubicPoints[5].set(
+            -middle + length45, -middle - length45,
             -middle, -middle,
-            -middle, -middle,
-            -middle, -middle
+            -middle - length45, -middle + length45
         )
         cubicPoints[6].set(
+            -half, -length,
             -half, 0f,
-            -half, 0f,
-            -half, 0f
+            -half, length
         )
         cubicPoints[7].set(
+            -middle - length45, middle - length45,
             -middle, middle,
-            -middle, middle,
-            -middle, middle
+            -middle + length45, middle + length45
+        )
+        cubicPoints[8].set(
+            -length, half,
+            0f, half,
+            length, half
         )
 
         val centerX = width / 2f
