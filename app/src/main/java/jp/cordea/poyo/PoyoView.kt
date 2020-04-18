@@ -16,7 +16,7 @@ class PoyoView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr), PoyoViewAnimatable {
     private val paint = Paint().apply {
         isAntiAlias = true
         color = ContextCompat.getColor(context, R.color.main)
@@ -40,6 +40,7 @@ class PoyoView @JvmOverloads constructor(
 
     private val accelerateInterpolator = AccelerateInterpolator()
     private val accelerate4Interpolator = AccelerateInterpolator(0.4f)
+    private val animator = PoyoViewAnimator(this)
 
     private var prevY = 0f
     private var debuggable = false
@@ -77,7 +78,7 @@ class PoyoView @JvmOverloads constructor(
             MotionEvent.ACTION_UP -> {
                 velocityTracker?.recycle()
                 velocityTracker = null
-                viewProgress.up { invalidate() }
+                animator.bounce(viewProgress.progress, viewProgress.distance)
             }
         }
         return super.onTouchEvent(event)
@@ -138,6 +139,16 @@ class PoyoView @JvmOverloads constructor(
                 )
             }
         }
+    }
+
+    override fun updateDistance(distance: Float) {
+        viewProgress.updateDistance(distance)
+        invalidate()
+    }
+
+    override fun updateProgress(progress: Float) {
+        viewProgress.updateProgress(progress)
+        invalidate()
     }
 
     private fun applyPlusCubicPoints() {

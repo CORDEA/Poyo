@@ -1,9 +1,5 @@
 package jp.cordea.poyo
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AccelerateInterpolator
 import kotlin.math.absoluteValue
 
 class ViewProgress {
@@ -44,33 +40,11 @@ class ViewProgress {
         }
     }
 
-    fun up(invalidate: () -> Unit) {
-        val endProgress = -(progress * progress)
-        AnimatorSet()
-            .apply {
-                playTogether(
-                    ObjectAnimator
-                        .ofFloat(distance, 0f)
-                        .apply {
-                            interpolator = AccelerateInterpolator()
-                            duration = 250L
-                            addUpdateListener {
-                                distance = it.animatedValue as Float
-                                invalidate()
-                            }
-                        },
-                    ObjectAnimator
-                        .ofFloat(progress, endProgress, 0f)
-                        .apply {
-                            interpolator = AccelerateDecelerateInterpolator()
-                            duration = 600L
-                            addUpdateListener {
-                                progress = it.animatedValue as Float
-                                invalidate()
-                            }
-                        }
-                )
-            }
-            .start()
+    fun updateDistance(distance: Float) {
+        this.distance = distance
+    }
+
+    fun updateProgress(progress: Float) {
+        this.progress = progress
     }
 }
