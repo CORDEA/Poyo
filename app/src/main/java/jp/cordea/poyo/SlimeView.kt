@@ -12,11 +12,11 @@ import android.view.animation.AccelerateInterpolator
 import androidx.core.content.ContextCompat
 import kotlin.math.absoluteValue
 
-class PoyoView @JvmOverloads constructor(
+class SlimeView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr), PoyoViewAnimatable {
+) : View(context, attrs, defStyleAttr), SlimeViewAnimatable {
     private val paint = Paint().apply {
         isAntiAlias = true
         color = ContextCompat.getColor(context, R.color.main)
@@ -40,7 +40,7 @@ class PoyoView @JvmOverloads constructor(
 
     private val accelerateInterpolator = AccelerateInterpolator()
     private val accelerate4Interpolator = AccelerateInterpolator(0.4f)
-    private val animator = PoyoViewAnimator(this)
+    private val animator = SlimeViewAnimator(this)
 
     private var prevY = 0f
     private var debuggable = false

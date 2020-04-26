@@ -9,16 +9,16 @@
         android:name="jp.cordea.poyo.CircleFragment"
         android:label="CircleFragment" />
     <fragment
-        android:id="@+id/poyoFragment"
-        android:name="jp.cordea.poyo.PoyoFragment"
-        android:label="PoyoFragment" />
+        android:id="@+id/slimeFragment"
+        android:name="jp.cordea.poyo.SlimeFragment"
+        android:label="SlimeFragment" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="jp.cordea.poyo.MainFragment"
         android:label="MainFragment">
         <action
-            android:id="@+id/action_mainFragment_to_poyoFragment"
-            app:destination="@id/poyoFragment" />
+            android:id="@+id/action_mainFragment_to_slimeFragment"
+            app:destination="@id/slimeFragment" />
         <action
             android:id="@+id/action_mainFragment_to_circleFragment"
             app:destination="@id/circleFragment" />

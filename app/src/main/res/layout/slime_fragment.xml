@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <jp.cordea.poyo.PoyoView
-        android:id="@+id/poyoView"
+    <jp.cordea.poyo.SlimeView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

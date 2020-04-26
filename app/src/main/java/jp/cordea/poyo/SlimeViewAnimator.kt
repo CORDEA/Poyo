@@ -6,13 +6,13 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import androidx.core.animation.doOnEnd
 
-interface PoyoViewAnimatable {
+interface SlimeViewAnimatable {
     fun updateDistance(distance: Float)
     fun updateProgress(progress: Float)
 }
 
-class PoyoViewAnimator(
-    private val animatable: PoyoViewAnimatable
+class SlimeViewAnimator(
+    private val animatable: SlimeViewAnimatable
 ) {
     private var animating = false
 

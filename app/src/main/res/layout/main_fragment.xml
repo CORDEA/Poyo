@@ -6,10 +6,10 @@
     android:padding="16dp">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/poyoButton"
+        android:id="@+id/slimeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/poyo"
+        android:text="@string/slime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,5 +22,5 @@
         android:text="@string/circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/poyoButton" />
+        app:layout_constraintTop_toBottomOf="@id/slimeButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
