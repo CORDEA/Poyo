@@ -2,6 +2,7 @@ package jp.cordea.poyo
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.view.animation.LinearInterpolator
 
 interface CircleViewAnimatable {
     fun updateDegrees(degrees: Int)
@@ -18,6 +19,7 @@ class CircleViewAnimator(
                     ValueAnimator.ofInt(0, 360)
                         .apply {
                             duration = 10000L
+                            interpolator = LinearInterpolator()
                             repeatCount = ValueAnimator.INFINITE
                             addUpdateListener {
                                 animatable.updateDegrees(it.animatedValue as Int)
