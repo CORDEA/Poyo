@@ -2,7 +2,7 @@ package jp.cordea.poyo
 
 import kotlin.math.absoluteValue
 
-class ViewProgress {
+class SlimeViewProgress {
     private var oldVelocity = 0f
 
     var distance: Float = 0f

@@ -46,7 +46,7 @@ class SlimeView @JvmOverloads constructor(
     private var debuggable = false
     private var velocityTracker: VelocityTracker? = null
 
-    private val viewProgress = ViewProgress()
+    private val viewProgress = SlimeViewProgress()
     private val maxHeight = context.resources.getDimension(R.dimen.max_height)
     private val bottomMaxHeight = context.resources.getDimension(R.dimen.bottom_max_height)
     private val cubicPoints = (0 until 7).map { CubicPoint() }
